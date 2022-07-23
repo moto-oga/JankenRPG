@@ -1,4 +1,4 @@
-package jankenRPG;
+package jankenRPG2;
 
 public class Chara{
 	
@@ -6,15 +6,61 @@ public class Chara{
 	private String[] itemBox = new String[10];
 	private int weapon;
 	private int shield = 100;
-	private String sex;
-	
 	private int level = 1;
 	private int power  = 1;
 	private int weaponPower = 0;
-	private int defense = 0;
+	private int def = 0;
 	private int atk;
-	private int hitPoint = 10;
+	private int hp = 10;
 	private int last = 0;
+	private int eneId = 0;
+	
+	Chara(int ene){//エネミー用
+		
+		switch(ene) {
+			case 0:
+				
+				setGoburin();
+				
+			break;
+			
+			case 1:
+				
+				setOhk();
+				
+			break;
+			
+			case 2:
+				
+				setToroll();
+				
+			break;
+			
+			case 3:
+				
+				setMiniDoragon();
+				
+			break;
+			
+			case 4:
+				
+				setDoragon();
+				
+			break;
+			
+			case 5:
+				
+				setDoragonRevo();
+				
+			break;
+			
+			default://何も値を入れずにインスタンスを生成
+				
+			break;
+			
+		}
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -26,6 +72,7 @@ public class Chara{
 		return itemBox;
 	}
 	public String setItemBox(String item) {
+		
 		int i = 0;
 		int boxCount = itemBox.length;
 		String comment = "";
@@ -58,17 +105,22 @@ public class Chara{
 	public void delItemBox(int id) {
 		
 		String itemId = Integer.toString(id);
-		String nul = null;
+		int deleteCount = 0;
+		int i = 0;
 		
-		for(int i = 0;i < itemBox.length;i++) {
+		while(deleteCount == 0) {
 			
 			if(itemBox[i] != null) {
 				
 				if(itemBox[i].equals(itemId)) {
 					
-					itemBox[i] = nul;
+					itemBox[i] = null;
+					deleteCount++;
+					
 				}
 			}
+			
+			i++;
 		}
 		
 	}
@@ -79,6 +131,9 @@ public class Chara{
 	public void setAtk() {
 		this.atk = power + weaponPower;
 	}
+	public void setEneAtk(int atk) {
+		this.atk = atk;	
+	}
 	
 	public int getLevel() {
 		return level;
@@ -87,13 +142,15 @@ public class Chara{
 		this.level = level;
 		
 		if(this.level % 3 == 0) {
-			setHitPoint(5);
-			setAtk();
+			setHp(getHp()+5);
+			
 		}else {
-			setHitPoint(1);
-			setPower(1);
-			setAtk();
+			setHp(getHp()+1);
+			
 		}
+		
+		setPower(1);
+		setAtk();
 	}
 	
 	public int getPower() {
@@ -103,19 +160,19 @@ public class Chara{
 		this.power += power;
 	}
 	
-	public int getDefense() {
-		return defense;
+	public int getDef() {
+		return def;
 	}
 
-	public void setDefense(int defense) {
-		this.defense = defense;
+	public void setDef(int defense) {
+		this.def = defense;
 	}
 	
-	public int getHitPoint() {
-		return hitPoint;
+	public int getHp() {
+		return hp;
 	}
-	public void setHitPoint(int hitPoint) {
-		this.hitPoint = this.hitPoint + hitPoint;
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 	public int getWeapon() {
 		return weapon;
@@ -138,38 +195,106 @@ public class Chara{
 				break;
 		}
 	}
+	
 	public void setWeaponPower(int p) {
 		this.weaponPower = p;
 	}
+	
 	public int getShield() {
 		return shield;
 	}
+	
 	public void setShield(int shield) {
+		
 		int shieldNum = shield;
+		
 		this.shield = shieldNum;
+		
 		switch(shieldNum) {
-			case 4: setDefense(Integer.parseInt(Item.douNoTate()[1]));
+		
+			case 4: setDef(Integer.parseInt(Item.douNoTate()[1]));
 				break;
-			case 5: setDefense(Integer.parseInt(Item.ginNoTate()[1]));
+			case 5: setDef(Integer.parseInt(Item.ginNoTate()[1]));
 				break;
-			case 6: setDefense(Integer.parseInt(Item.kinNoTate()[1]));
+			case 6: setDef(Integer.parseInt(Item.kinNoTate()[1]));
 				break;
-			case 7: setDefense(Integer.parseInt(Item.ryuNoTate()[1]));
+			case 7: setDef(Integer.parseInt(Item.ryuNoTate()[1]));
 				break;
 		}
 	}
-	public String getSex() {
-		return sex;
-	}
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
+	
 	public int getLast() {
 		return last;
 	}
+	
 	public void setLast(int last) {
 		this.last = last;
 	}
 	
+	public void setGoburin() {
+		
+		 name = "ゴブリン";
+		 atk = 2;
+		 def = 0;
+		 hp = 4;
+		 setEneId(0);	
+	}
+	
+	public void setOhk() {
+		
+		name = "オーク";
+		 atk = 4;
+		 def = 0;
+		 hp = 6;
+		 setEneId(1);
+				
+	}
+	
+	public void setToroll() {
+		
+		 name = "トロール";
+		 atk = 4;
+		 def = 2;
+		 hp = 10;
+		 setEneId(2);
+				
+	}
+
+	public void setMiniDoragon() {
+	
+		 name = "ミニドラゴン";
+		 atk = 2;
+		 def = 4;
+		 hp = 10;
+		 setEneId(3);
+			
+	}
+	
+	public void setDoragon() {
+		
+		 name = "ドラゴン";
+		 atk = 8;
+		 def = 6;
+		 hp = 30;
+		 setEneId(4);
+				
+	}
+	
+	public void setDoragonRevo() {
+		
+		 name = "超ドラゴン";
+		 atk = 20;
+		 def = 4;
+		 hp = 60;
+		 setEneId(5);
+				
+	}
+	
+	public int getEneId() {
+		return eneId;
+	}
+	public void setEneId(int eneId) {
+		this.eneId = eneId;
+	}
 
 }

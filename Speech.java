@@ -1,13 +1,13 @@
-package jankenRPG;
+package jankenRPG2;
 
 public class Speech extends MainContent{
 	
 	public static int battelPattern() {
 		
-		announce("--------------------");
+		System.out.println("--------------------");
 		announce("洞窟を奥まで進んでいる。");
-		announce("ザッザ");
-		announce("ザッザ");
+		announce("ザッザッザ");
+		announce("ザッザッザ");
 		announce("・・・");
 		announce("魔物が現れた！");
 		
@@ -15,10 +15,10 @@ public class Speech extends MainContent{
 	}
 	
 	public static int itemPattern() {
-		announce("--------------------");
+		System.out.println("--------------------");
 		announce("洞窟を奥まで進んでいる。");
-		announce("ザッザ");
-		announce("ザッザ");
+		announce("ザッザッザ");
+		announce("ザッザッザ");
 		announce("・・・");
 		announce("宝物を発見した！");
 		
@@ -27,10 +27,10 @@ public class Speech extends MainContent{
 	
 	public static int nothingPattern() {
 		
-		announce("--------------------");
+		System.out.println("--------------------");
 		announce("洞窟を奥まで進んでいる。");
-		announce("ザッザ");
-		announce("ザッザ");
+		announce("ザッザッザ");
+		announce("ザッザッザ");
 		announce("・・・");
 		announce("まだまだ先は長そうだ");
 		
@@ -39,10 +39,10 @@ public class Speech extends MainContent{
 	
 	public static int doragonVoicePattern() {//4
 		
-		announce("--------------------");
+		System.out.println("--------------------");
 		announce("洞窟を奥まで進んでいる。");
-		announce("ザッザ");
-		announce("ザッザ");
+		announce("ザッザッザ");
+		announce("ザッザッザ");
 		announce("・・・");
 		announce("ドラゴンの鳴き声が聞こえた！近くにいる！");
 		

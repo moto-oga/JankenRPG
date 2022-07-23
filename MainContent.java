@@ -1,4 +1,4 @@
-package jankenRPG;
+package jankenRPG2;
 
 
 
@@ -6,14 +6,18 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class MainContent {	
+public class MainContent{
 	
+		
+		
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		Chara chara = new Chara();
-		String select = "y";
-		boolean ok = true;
-		int secretBox = 0;
+		
+		Scanner sc = new Scanner(System.in);//入力受付
+		Chara player = new Chara(10);//キャラクターインスタンス
+		String select = "y";//選択判別
+		boolean b = true;//while用
+		int secret = 0; //隠し要素
+		int secretBox = 0;//隠し要素
 		
 		System.out.println("---ルール説明");
 		System.out.println("1.入力は半角で行ってください。");
@@ -21,153 +25,128 @@ public class MainContent {
 		System.out.println("3.戦闘システムはじゃんけんと同じです。相手の手に勝つ事が出来ればダメージを与えられます。");
 		System.out.println("逆に負ければ、ダメージを受けます。あいこなら何も起きません。");
 		System.out.println("よろしいですか？y/n");
+		
 		sc.next();
+		
 		System.out.println("---それでは、じゃんけんRPGを開始します。");
 		System.out.println("あなたの名前はなんですか？");
-		chara.setName(sc.next());
 		
-		do {
-			System.out.println("あなたの性別はなんですか？man/woman");
-			String answer = sc.next();
-			if(answer.equals("man") || answer.equals("woman")) {
-				chara.setSex(answer);
-				ok = false;
-			}else {
-				System.out.println("manかwomanで入力してください。");
-				ok = true;
-			}
-		}while(ok);
+		player.setName(sc.next());
 		
-		System.out.println(chara.getName()+"。あなたはこれから洞窟に棲むドラゴンを退治してきてください。");
+		
+		announce(player.getName()+"。あなたはこれから洞窟に棲むドラゴンを退治してきてください。");
 		System.out.println("-----------------------------");
 		System.out.println("退治しにいきますか？y/n");
 		
 		if(select.equals(sc.next())) {
-			System.out.println("流石は私が見込んだ人です。私からの餞別です受け取りなさい。");
-			announce("---銅の剣を手に入れた！");
-			announce("---回復薬を手に入れた！");
-			announce("---けむり玉を手に入れた！");
-			announce("---けむり玉を手に入れた！");
 			
-			chara.setItemBox(Item.douNoKen()[2]);
-			chara.setItemBox(Item.kaifuku()[2]);
-			chara.setItemBox(Item.kemuriDama()[2]);
-			chara.setItemBox(Item.kemuriDama()[2]);
+			announce("流石は私が見込んだ人です。私からの餞別です受け取りなさい。");
 			
-			System.out.println("装備しますか？y/n");
+			System.out.print("---");
+			announce("銅の剣を手に入れた！");
 			
-			if(select.equals(sc.next())) {
-				System.out.println(Item.douNoKen()[0] + "を装備しました！");
-				chara.setWeapon(Integer.parseInt(Item.douNoKen()[2]));
-			}
+			System.out.print("---");
+			announce("回復薬を手に入れた！");
+			
+			System.out.print("---");
+			announce("けむり玉を手に入れた！");
+			
+			System.out.print("---");
+			announce("けむり玉を手に入れた！");
+			
+			player.setItemBox(Item.douNoKen()[2]);
+			player.setItemBox(Item.kaifuku()[2]);
+			player.setItemBox(Item.kemuriDama()[2]);
+			player.setItemBox(Item.kemuriDama()[2]);
+			
+			System.out.println(Item.douNoKen()[0] + "を装備しました！");
+			player.setWeapon(Integer.parseInt(Item.douNoKen()[2]));
+	
 			
 		}else {
-			System.out.println("なんて根性の無い…。");
+			announce("なんて根性の無い…。");
 			System.out.println("--------------------------");
-			System.out.println("G A M E O V E R");
+			announce("G A M E O V E R");
 			sc.close();
 			return;
 		}
 		
-//		for(int i = 0; i < chara.getItemBox().length; i++) {
-//			System.out.println(chara.getItemBox()[i]);
-//		}
-		announce("ザッザ");
-		announce("ザッザ");
-	
-		String iam = chara.getSex().equals("man") ? "俺":"私";
-		announce(iam + "は洞窟へと入っていった。");
-		boolean end = true;
-		
+		announce("ザッザッザ");
+		announce("ザッザッザ");
+		announce("洞窟へと入っていった。");
 		
 			
 			
-			int[] charaStatus = new int[7];
-			int secret = 0;
-		do {
+		while(b){//ゲーム本筋
+			
 			int event = dangeon();
 			
-			event = 1;
-			chara.setHitPoint(100);
-			chara.setWeapon(3);
-			chara.setLast(100);
+//			event = 4; 				//--確認用
+//			 
+//			player.setWeapon(3);
+//			player.setShield(7);
+//			player.setHp(150);	
+//			player.setLevel(20);//--迄
+			//announce(Arrays.toString(chara.getItemBox()));			
 			
-			charaStatus[0] = chara.getWeapon();
-			charaStatus[1] = chara.getShield();
-			charaStatus[2] = chara.getLevel();
-			charaStatus[3] = chara.getAtk();
-			charaStatus[4] = chara.getDefense();
-			charaStatus[5] = chara.getHitPoint();
-			charaStatus[6] = 0;
-			//announce(Arrays.toString(chara.getItemBox()));
-				
+			switch(event) {//イベント分岐
 			
-			int[] update = new int[charaStatus.length];
-			
-			
-			switch(event) {
 			 case 1:
-					 update =  Event.battle(chara.getItemBox(),charaStatus,chara.getName(),chara);//戦闘
-					 secret = 0;
-//				 for(int i = 0; i < update.length;i++) {
-//					
-//				 }				
+				 
+				 	player.setEneId(0);
+					Event.battle(player);//戦闘
+					secret = 0;
+					 
 				 break;
 				 
-			 case 2:chara.setItemBox(Event.item(secret));//宝物
+			 case 2:
+				 	player.setEneId(0);	
+				 	Event.item(player,secret);//宝物
 			 		secret = 0;
 				 break;
 				 
 			 case 3://何もなし
+				 	player.setEneId(0);
 				 	secret ++;
 				 
 				 break;
 				 
 			 case 4://ボス近い
-					 charaStatus[6] = 1;
-					 update =  Event.battle(chara.getItemBox(),charaStatus,chara.getName(),chara);//戦闘
-					 secret = 0;
+				 	player.setEneId(4);
+				 	Event.battle(player);//戦闘
+				 	secret = 0;
 				 break;
 			}
 			
-			if(event == 1) {
-				
-			
-				
-				chara.setWeapon(update[0]);
-				chara.setShield(update[1]);
-				chara.setLevel(update[2]);
-				//chara.setAtk(charaStatus[3]);
-				chara.setDefense(update[4]);
-				//chara.setHitPoint(charaStatus[5]);
-			}
-			
-			if(update[0] == 100) {
+			if(player.getLast() == 100) {//LASTBATTLE!!
 				
 				announce("--G A M E C L E A R ! ! !--");
 				sleep(10000);
 				announce("---ｳﾞｨｷﾞｬﾙﾙｩｩﾜｧｧｧｧｧ！！！");
 				announce("ドラゴンはまだ倒せていなかった！怒りでさらに強くなったドラゴンを倒してください！");
-				chara.setLast(100);
-				Event.battle(chara.getItemBox(),charaStatus,chara.getName(),chara);
-				end = false;
 				
-				if(update[0] == 1000){
+				Event.battle(player);
+				
+				
+				if(player.getLast() == 1000){
 				
 					announce("--G A M E C L E A R ! ! !--");
-					end = false;
+					
+					b = false;
 					
 				}
 				
 			}else {
 				
-				secretBox += standby(sc,chara);
+				secretBox += standby(sc,player);
 				
 			}
 			
+//			for(String i:player.getItemBox()) {//デバック用
+//				System.out.println(i);
+//			}
 			
-			
-		}while(end);
+		}
 		
 		
 	}
@@ -182,7 +161,7 @@ public class MainContent {
 		}
 	}
 	
-	public static int dangeon() {
+	public static int dangeon() {//場面の分岐
 		
 		Random rnd = ThreadLocalRandom.current();
 		int rndNum = rnd.nextInt(5);
@@ -190,15 +169,15 @@ public class MainContent {
 		
 		switch(rndNum) {
 		
-			case 0:event = Speech.battelPattern();
+			case 0:event = Speech.battelPattern();//戦闘に向かうシーン
 			break;
-			case 1:event = Speech.itemPattern();
+			case 1:event = Speech.itemPattern();//宝箱発見シーン
 			break;
-			case 2:event = Speech.nothingPattern();
+			case 2:event = Speech.nothingPattern();//何も起こらないシーン
 			break;
-			case 3:event = Speech.doragonVoicePattern();
+			case 3:event = Speech.doragonVoicePattern();//ボス接近シーン
 			break;
-			case 4:event = Speech.nothingPattern();
+			case 4:event = Speech.nothingPattern();//何も起こらないシーン
 			break;
 			
 		}
@@ -207,93 +186,136 @@ public class MainContent {
 		
 	}
 	
+//	public static void  announce(String anounce) {
+//		
+//		sleep(700);
+//		System.out.println(anounce);
+//		
+//	}
+	
 	public static void  announce(String anounce) {
 		
-		sleep(1000);
-		System.out.println(anounce);
+		String a = anounce;
+		String b = null;
+		String c = System.getProperty("line.separator");
+		
+		for(int i = 0; i < a.length(); i++) {
+			
+			if(i == a.length()-1) {
+				sleep(100);
+				b = a.substring(i,i+1);
+				System.out.print(b+c);
+			}else {
+				sleep(100);
+				b = a.substring(i,i+1);
+				System.out.print(b);
+			}
+			
+		}
 		
 	}
 	
 	
-	public static int standby(Scanner sc,Chara chara) {
+	public static int standby(Scanner sc,Chara player) {
 		
 		boolean b = true;
 		int secretNum = 0;
-		announce("道が分かれている…");
-		announce("どの方向に進みますか？　左/q 右/w 真ん中/e 装備変更/r");
 		
+		announce("道が分かれている…");
+		announce("どの方向に進みますか？");
+		System.out.println("左/q 右/w 真ん中/e 装備変更/r");
 		String select = sc.next();
+		String[][] afterItem;
 		
 		if(select.equals("r")) {
 			
-			String[] itemBox = chara.getItemBox();
-			String[] itemName;
-			String[] itemContent;
-			String[] itemId;
+			String[] itemBox = player.getItemBox();//現在の所持品
+			
 			int i = 0;
 			
 			for(String item2: itemBox) {//所持アイテム数をチェック
 				
 				if(item2 != null) {
+					
 					i ++;
+					
 				}
 			}
 			
-			itemName = new String[i];
-			itemContent = new String[i];
-			itemId = new String[i];
-			i = 0;
+			afterItem = new String[i][4];
+			
+			i = 0;//アイテムカウント
 			
 			for(String item: itemBox) {
 				
 				if(item != null) {
 					
 					String[] searchItem = Event.search(item);
-					itemName[i] = searchItem[0];
-					itemContent[i] = searchItem[3];
-					itemId[i] = searchItem[2];
-					i++;
 					
+					for(int j = 0; j < 4 ; j ++) {//アイテムの詳細項目数
+						
+						afterItem[i][j] = searchItem[j];
+								
+					}
+					
+					i++;
 							
-				}
-				
+				}	
 				
 			}
 			
-			String[] sord = Event.search(Integer.toString(chara.getWeapon()));
-			String[] shield = Event.search(Integer.toString(chara.getShield()));
-			String sordName;
-			String shieldName;
-			if(sord[2].equals("100")){
-				sord[0] = "無し";
-			}else if( shield[2].equals("100")) {
-				shield[0] = "無し";
+			String sordName = Event.search(Integer.toString(player.getWeapon()))[0];
+			String shieldName = Event.search(Integer.toString(player.getShield()))[0];
+			
+			if(player.getWeapon() == 100){
+				
+				sordName = "無し";
+				
+			}else if(player.getShield() == 100) {
+				
+				shieldName = "無し";
+				
 			}else {
 				
 			}
 			
 			System.out.println("-----ステータス-----");
-			System.out.println("装備【剣】"+""+";"+""+sord[0]);
-			System.out.println("装備【盾】"+""+";"+""+shield[0]);
-			System.out.println("レベル"+""+";"+""+chara.getLevel());
-			System.out.println("体力"+""+";"+""+chara.getHitPoint());
-			System.out.println("力"+""+";"+""+chara.getPower());
-			System.out.println("防御力"+""+";"+""+chara.getDefense());
+			System.out.println("装備【剣】"+""+";"+""+sordName);
+			System.out.println("装備【盾】"+""+";"+""+shieldName);
+			System.out.println("レベル"+""+";"+""+ player.getLevel());
+			System.out.println("体力"+""+";"+""+ player.getHp());
+			System.out.println("力"+""+";"+""+ player.getPower());
+			System.out.println("防御力"+""+";"+""+ player.getDef());
 			System.out.println("-----所持品-----");
+			
 			i = 0;
-			for(String iName : itemName) {
-				System.out.println(i+"."+""+iName + ":" + itemContent[i] );
+			
+			for(String[] currentItem : afterItem) {
+					
+				System.out.println(i + "." + "" +currentItem[0] + "" +":"+ "" + currentItem[3] );
+				
 				i++;
+				
 			}
+			
 			i = 0;
-			do {
+			
+			while(b){
+				
 				System.out.println("装備したい装備の番号を入力してください。");
 				int num = sc.nextInt();
 				
-				if(Integer.parseInt(itemId[num]) <= 9) {
+				if(Integer.parseInt(afterItem[num][2]) <= 1009) {//アイテムIDが9以下は装備アイテムフィルター
+					int filter = Integer.parseInt(afterItem[num][2]);
 					
-					chara.setWeapon(Integer.parseInt(itemId[num]));
-					announce(itemName[num] + "を装備しました！");
+					if(filter == 1000 || filter == 1001 || filter == 1002 || filter == 1003) {//剣盾フィルター
+						player.setWeapon(Integer.parseInt(afterItem[num][2]));
+					}else {
+						player.setShield(Integer.parseInt(afterItem[num][2]));
+					}
+					
+					announce(afterItem[num][0] + "を装備しました！");
+					
 					b = false;
 					
 				}else {
@@ -302,15 +324,22 @@ public class MainContent {
 					b = true;
 					
 				}
-			}while(b);
+			}
 			
-		}else {
+		}else {//進行方向によって数字を付加
+			
 			if(select.equals("q")) {
+				
 				secretNum = 1;
+				
 			}else if(select.equals("w")) {
+				
 				secretNum = 2;
+				
 			}else if(select.equals("e")) {
+				
 				secretNum = 3;
+				
 			}else {
 				
 			}

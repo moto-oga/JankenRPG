@@ -1,20 +1,23 @@
-package jankenRPG;
+package jankenRPG2;
 
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Event extends MainContent{
+public class  Event extends MainContent{
 	
-	public static String item(int secret) {
+	static String[] afterItems;//所持アイテムを表示する
+	
+	public static void item(Chara player , int secret) {
 		
 		Scanner sc = new Scanner(System.in);
 		Random rnd = ThreadLocalRandom.current();
 		int rndNum = rnd.nextInt(100);
 		String yes = "y";
-		String getItem = null;
+		String comment = null;
 		
 		if(rndNum < 60) {
+			
 			if(secret >= 3) {
 				
 				announce("竜殺しの宝箱があります。あけますか？y/n");
@@ -24,16 +27,25 @@ public class Event extends MainContent{
 					rndNum = rnd.nextInt(2);
 					
 					switch(rndNum) {
-						case 0:
-							announce(Item.ryuNoTate()[0] + "を手に入れた！");
-							getItem = Item.ryuNoTate()[2];
-						break;
+					case 0:
+						comment = player.setItemBox(Item.ryuNoKen()[2]);
 						
-						case 1:
+						if(comment != null) {
 							announce(Item.ryuNoKen()[0] + "を手に入れた！");
-							getItem = Item.ryuNoKen()[2];
-						break;
+						}else {
+							announce(comment);
+						}
+					break;
+					
+					case 1:
+						comment = player.setItemBox(Item.ryuNoTate()[2]);
 						
+						if(comment != null) {
+							announce(Item.ryuNoTate()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
+					break;
 					}
 				}
 				
@@ -43,47 +55,63 @@ public class Event extends MainContent{
 				
 				if(yes.equals(sc.next())) {
 					
-					rndNum = rnd.nextInt(8);
+					rndNum = rnd.nextInt(6);
 					
 					switch(rndNum) {
-						case 0:
+					case 0:
+						comment = player.setItemBox(Item.douNoTate()[2]);
+						
+						if(comment != null) {
 							announce(Item.douNoTate()[0] + "を手に入れた！");
-							getItem = Item.douNoTate()[2];
-						break;
+						}else {
+							announce(comment);
+						}
 						
-						case 1:
-							announce("何もなかった残念！");
-						break;
+					break;
+					
+					case 1:
+						announce("何もなかった残念！");
+					break;
+					
+					case 2:
+						comment = player.setItemBox(Item.kaifuku()[2]);
 						
-						case 2:
-							announce(Item.douNoKen()[0] + "を手に入れた！");
-							getItem = Item.douNoKen()[2];
-						break;
-						
-						case 3:
-							announce(Item.douNoTate()[0] + "を手に入れた！");
-							getItem = Item.douNoTate()[2];
-						break;
-						
-						case 4:
-							announce(Item.douNoKen()[0] + "を手に入れた！");
-							getItem = Item.douNoKen()[2];
-						break;
-						
-						case 5:
-							announce(Item.douNoTate()[0] + "を手に入れた！");
-							getItem = Item.douNoTate()[2];
-						break;
-						
-						case 6:
+						if(comment != null) {
 							announce(Item.kaifuku()[0] + "を手に入れた！");
-							getItem = Item.kaifuku()[2];
-						break;
+						}else {
+							announce(comment);
+						}
+					break;
+					
+					case 3:
+						comment = player.setItemBox(Item.douNoKen()[2]);
 						
-						case 7:
-							announce(Item.ginNoKen()[0] + "を手に入れた！");
-							getItem = Item.ginNoKen()[2];
-						break;
+						if(comment != null) {
+							announce(Item.douNoKen()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
+					break;
+					
+					case 4:
+						comment = player.setItemBox(Item.kyouKaifuku()[2]);
+						
+						if(comment != null) {
+							announce(Item.kyouKaifuku()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
+					break;
+					
+					case 5:
+						comment = player.setItemBox(Item.kyouKaifuku()[2]);
+						
+						if(comment != null) {
+							announce(Item.kyouKaifuku()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
+					break;
 					}
 				}
 			}
@@ -93,67 +121,93 @@ public class Event extends MainContent{
 				if(secret >= 3) {
 					
 					announce("竜殺しの宝箱があります。あけますか？y/n");
-					rndNum = rnd.nextInt(8);
+					rndNum = rnd.nextInt(2);
 					
 					switch(rndNum) {
 						case 0:
-							announce(Item.ryuNoTate()[0] + "を手に入れた！");
-							getItem = Item.ryuNoTate()[2];
+							comment = player.setItemBox(Item.ryuNoKen()[2]);
+							
+							if(comment != null) {
+								announce(Item.ryuNoKen()[0] + "を手に入れた！");
+							}else {
+								announce(comment);
+							}
 						break;
 						
 						case 1:
-							announce(Item.ryuNoKen()[0] + "を手に入れた！");
-							getItem = Item.ryuNoKen()[2];
+							comment = player.setItemBox(Item.ryuNoTate()[2]);
+							
+							if(comment != null) {
+								announce(Item.ryuNoTate()[0] + "を手に入れた！");
+							}else {
+								announce(comment);
+							}
 						break;
 						
 					}
+					
 				}else {
 					announce("銀の宝箱があります。あけますか？y/n");
 					
 					if(yes.equals(sc.next())) {
 						
-						rndNum = rnd.nextInt(8);
+						rndNum = rnd.nextInt(6);
 						
 						switch(rndNum) {
-							case 0:
+						case 0:
+							comment = player.setItemBox(Item.ginNoTate()[2]);
+							
+							if(comment != null) {
 								announce(Item.ginNoTate()[0] + "を手に入れた！");
-								getItem = Item.ginNoTate()[2];
-							break;
+							}else {
+								announce(comment);
+							}
 							
-							case 1:
-								announce("何もなかった残念！");
-							break;
+						break;
+						
+						case 1:
+							announce("何もなかった残念！");
+						break;
+						
+						case 2:
+							comment = player.setItemBox(Item.kaifuku()[2]);
 							
-							case 2:
-								announce(Item.ginNoKen()[0] + "を手に入れた！");
-								getItem = Item.ginNoKen()[2];
-							break;
-							
-							case 3:
-								announce(Item.ginNoTate()[0] + "を手に入れた！");
-								getItem = Item.ginNoTate()[2];
-							break;
-							
-							case 4:
-								announce(Item.ginNoKen()[0] + "を手に入れた！");
-								getItem = Item.ginNoKen()[2];
-							break;
-							
-							case 5:
-								announce(Item.ginNoTate()[0] + "を手に入れた！");
-								getItem = Item.ginNoTate()[2];
-							break;
-							
-							case 6:
+							if(comment != null) {
 								announce(Item.kaifuku()[0] + "を手に入れた！");
-								getItem = Item.kaifuku()[2];
-							break;
+							}else {
+								announce(comment);
+							}
+						break;
+						
+						case 3:
+							comment = player.setItemBox(Item.ginNoKen()[2]);
 							
-							case 7:
-								announce(Item.bom()[0] + "を手に入れた！");
-								getItem = Item.bom()[2];
-								
-							break;
+							if(comment != null) {
+								announce(Item.ginNoKen()[0] + "を手に入れた！");
+							}else {
+								announce(comment);
+							}
+						break;
+						
+						case 4:
+							comment = player.setItemBox(Item.kyouKaifuku()[2]);
+							
+							if(comment != null) {
+								announce(Item.kyouKaifuku()[0] + "を手に入れた！");
+							}else {
+								announce(comment);
+							}
+						break;
+						
+						case 5:
+							comment = player.setItemBox(Item.gekiKyouKaifuku()[2]);
+							
+							if(comment != null) {
+								announce(Item.gekiKyouKaifuku()[0] + "を手に入れた！");
+							}else {
+								announce(comment);
+							}
+						break;
 						}
 					}
 				}
@@ -163,12 +217,18 @@ public class Event extends MainContent{
 			
 			if(yes.equals(sc.next())) {
 				
-				rndNum = rnd.nextInt(8);
+				rndNum = rnd.nextInt(6);
 				
 				switch(rndNum) {
 					case 0:
-						announce(Item.kinNoTate()[0] + "を手に入れた！");
-						getItem = Item.kinNoTate()[2];
+						comment = player.setItemBox(Item.kinNoTate()[2]);
+						
+						if(comment != null) {
+							announce(Item.kinNoTate()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
+						
 					break;
 					
 					case 1:
@@ -176,522 +236,564 @@ public class Event extends MainContent{
 					break;
 					
 					case 2:
-						announce(Item.kinNoKen()[0] + "を手に入れた！");
-						getItem = Item.kinNoKen()[2];
+						comment = player.setItemBox(Item.kyouKaifuku()[2]);
+						
+						if(comment != null) {
+							announce(Item.kyouKaifuku()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
 					break;
 					
 					case 3:
-						announce(Item.kinNoTate()[0] + "を手に入れた！");
-						getItem = Item.kinNoTate()[2];
+						comment = player.setItemBox(Item.kinNoKen()[2]);
+						
+						if(comment != null) {
+							announce(Item.kinNoKen()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
 					break;
 					
 					case 4:
-						announce(Item.kinNoKen()[0] + "を手に入れた！");
-						getItem = Item.kinNoKen()[2];
+						comment = player.setItemBox(Item.gekiKyouKaifuku()[2]);
+						
+						if(comment != null) {
+							announce(Item.gekiKyouKaifuku()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
 					break;
 					
 					case 5:
-						announce(Item.kinNoTate()[0] + "を手に入れた！");
-						getItem = Item.kinNoTate()[2];
+						comment = player.setItemBox(Item.gekiKyouKaifuku()[2]);
+						
+						if(comment != null) {
+							announce(Item.gekiKyouKaifuku()[0] + "を手に入れた！");
+						}else {
+							announce(comment);
+						}
 					break;
 					
-					case 6:
-						announce(Item.kyouKaifuku()[0] + "を手に入れた！");
-						getItem = Item.kyouKaifuku()[2];
-					break;
 					
-					case 7:
-						announce(Item.kyouKaifuku()[0] + "を手に入れた！");
-						getItem = Item.kyouKaifuku()[2];
-						
-					break;
-					case 8:
-						announce(Item.gekiKyouKaifuku()[0] + "を手に入れた！");
-						getItem = Item.gekiKyouKaifuku()[2];
-						
-					break;
 				}
-			}else {
-				announce(Item.ryuNoKen()[0] + "を手に入れた！");
-				getItem = Item.ryuNoKen()[2];
+		
 			}
 			
 		
 		}
-		
-		
-		return getItem;
-		
 		
 	}
 	
-	public static int[] battle(String[] itemBox,int[] chara,String name,Chara charaItem) {
+	public static void battle(Chara player) {
 		
 		Random rnd = ThreadLocalRandom.current();
-		Enemy ene = new Enemy();
+		Chara enemy; 
 	
 		String select = "a";
-		String sord = "q";
-		String shield = "w";
-		String magic = "e";
 		
-		int actionNum = 0;
-		int result = 0;
-		int rndNum = rnd.nextInt(3);
-		int enemy = rnd.nextInt(100) + 1;
-		int escape = 0;
+		int actionNum = 0;//プレイヤーの攻撃種類
+		int result = 0;//じゃんけんの結果
+		int rndNum = rnd.nextInt(3);//エネミーの攻撃種類
+		int enemyNum = rnd.nextInt(100) + 1;//エネミー出現ランダム選定
+		int escape = 0;//けむり玉用
+		
+		
 		
 		boolean b = true;
-	//do {
-		if(charaItem.getLast() == 100) {
-			ene.doragonRevo();
-			announce(ene.getName()+"が現れた！！");
+		
+		//出現する敵をランダム選択。
+		if(player.getLast() == 100) {//ラスボス
+			
+			enemy = new Chara(5);
+			
 		}else {
-			if(enemy < 50 || chara[2] < 3) {
+			
+			if(enemyNum < 50 || player.getLevel() < 3) {
 				
-				if(chara[2] > 10 && chara[6] == 1) {
+				if( player.getLevel() > 10 && player.getEneId() == 4) {
 					
-					ene.doragon();
-					announce(ene.getName()+"が現れた！！");
+					enemy = new Chara(4);//ゴブリン
 					
 				}else {
 					
-					ene.goburin();
-					announce(ene.getName()+"が現れた！！");
-					
+					enemy = new Chara(0);//ドラゴン
 				}
 				
-			}else if (enemy < 70) {
+			}else if (enemyNum < 70) {
 				
-				ene.ohk();
-				announce(ene.getName()+"が現れた！！");
+				enemy = new Chara(1);//オーク
+			
 				
-			}else if (enemy < 90) {
+			}else if (enemyNum < 90) {
 				
-				ene.toroll();
-				announce(ene.getName()+"が現れた！！");
+				enemy = new Chara(2);//トロール
+				
 				
 			}else {
 				
-				ene.miniDoragon();
-				announce(ene.getName()+"が現れた！！");
+				enemy = new Chara(3);//ミニドラゴン
 				
 			}
+			
+			announce(enemy.getName()+"が現れた！！");
+			
 		}
-		int maxHpEne = ene.getHp();
-		int maxHpPla = chara[5];
-		int magicAtk = 0;
 		
-		do {
-			 magicAtk = 0;
+		int maxHpEne = enemy.getHp();
+		int maxHpPla = player.getHp();
+		int magicAtk = 0;
+		int magicCounter = 0;
+		int shieldCounter = 0;
+		
+		while(b){//戦闘繰り返し
+			
+			magicAtk = 0;
+			
 			Scanner sc = new Scanner(System.in);
-			announce("-------------------------------------------");
-			System.out.println(ene.getName()+""+"【体力】"+"："+ene.getHp()+"/"+maxHpEne);
 			System.out.println("-------------------------------------------");
-			System.out.println(name+""+"【体力】"+"："+chara[5]+"/"+maxHpPla+""+"【攻撃力】"+chara[3]+""+"【防御力】"+chara[4]+""+"【Lv】" +chara[2]);
+			System.out.println(enemy.getName()+""+"【体力】"+"："+ enemy.getHp() + "/" + maxHpEne );
+			System.out.println("-------------------------------------------");
+			System.out.println(player.getName() + "" + "【体力】" + "：" + player.getHp() + "/" + maxHpPla + "" + "【攻撃力】" + player.getAtk() + "" + "【防御力】" + player.getDef() + "" +"【Lv】" + player.getLevel() );
 			System.out.println("-------------------------------------------");
 			
-			announce("攻撃しますか？アイテムを使いますか？a/i");
-			select = "a";
-			String mySelect = sc.next();
-			if(select.equals(mySelect)) {
-				do {
-					do {
-						System.out.println("剣で攻撃 (q) ");
-						System.out.println("盾で防ぐ (w) ");
-						System.out.println("魔法で攻撃 (e) ");
+			announce("攻撃しますか？/q アイテムを使いますか？/w");
+			select = sc.next();
+			
+			if(select.equals("q")){//攻撃パターン
+				
+				b = true;
 						
-						select = sc.next();
+				System.out.println("剣で攻撃 (q)　盾で防ぐ (w)　魔法で攻撃 (e)");
+				
+				
+				select = sc.next();
+				
+				if(select.equals("q") || select.equals("w") || select.equals("e")) {//コマンドが正しいかチェック。
 						
-						if(select.equals("q") || select.equals("w") || select.equals("e")) {//コマンドが正しいかチェック。
+					switch(select) {
+					
+						case "q"://剣アクション
+					
+							if(enemy.getEneId() == 5) {
 								
-							if(sord.equals(select)) {//剣アクション
+								actionNum = 1;
+								rndNum = rnd.nextInt(4)+1;
 								
-								
-								
-								if(ene.getId() == 5) {
-									actionNum = 1;
-									rndNum = rnd.nextInt(4);
-									
-									result = janken(actionNum,(rndNum+1));
-									
-									b = false;
-									
-								}else {
-									actionNum = 1;
-									rndNum = rnd.nextInt(3);
-									
-									result = janken(actionNum,(rndNum+1));
-									
-									b = false;
-								}
-								
-							}else if(shield.equals(select)) {//盾アクション
-								
-								
-								
-								if(ene.getId() == 5) {
-									actionNum = 2;
-									rndNum = rnd.nextInt(5);
-									
-									result = janken(actionNum,(rndNum+1));
-									
-									b = false;
-								}else {
-									actionNum = 2;
-									rndNum = rnd.nextInt(3);
-									
-									result = janken(actionNum,(rndNum+1));
-									
-									b = false;
-								}
-								
-							}else if(magic.equals(select)) {//魔法アクション
-								
-								magicAtk = 1;
-								
-								
-								if(ene.getId() == 5) {
-									actionNum = 3;
-									rndNum = rnd.nextInt(5);
-									
-									result = janken(actionNum,(rndNum+1));
-									
-									b = false;
-								}else {
-									actionNum = 3;
-									rndNum = rnd.nextInt(3);
-									
-									result = janken(actionNum,(rndNum+1));
-									
-									b = false;
-								}
 								
 							}else {
 								
-								//一応elseを置いてある
+								actionNum = 1;
+								rndNum = rnd.nextInt(3)+1;
 								
 							}
+							break;
+						
+						case "w"://盾アクション
 							
-						}else {
+							if(enemy.getEneId() == 5) {
+								
+								actionNum = 2;
+								rndNum = rnd.nextInt(4)+1;
+	
+							}else {
+								
+								actionNum = 2;
+								rndNum = rnd.nextInt(3)+1;
+	
+							}
+							
+							break;
+							
+						case "e"://魔法アクション
+							
+							if(enemy.getEneId() == 5) {
+								
+								actionNum = 3;
+								rndNum = rnd.nextInt(4)+1;
+								
+							}else {
+								
+								actionNum = 3;
+								rndNum = rnd.nextInt(3)+1;
+							}
+							
+							magicAtk = 1;
+							
+							break;
+							
+						default:
+							
 							announce("コマンドが適切ではありません。再度入力してください。");
 							b = true;
-						}
-						
-					}while(b);
+							
+							break;
+					}
 					
-					b = false;
+					result = janken(actionNum,rndNum);//じゃんけんの結果を返す
+				
+					
+					int d = 0;
+			
 					if(result == 1) {
 						//相手にダメージを与えて、０じゃないならターンを繰り返す。
-						if(magicAtk == 1) {
+						
+						if(magicAtk == 1) {//魔法の効果
+							magicCounter ++;
+							double magicD = 0;
 							announce("魔法の攻撃は相手の防御を貫通します！");
-							announce(ene.getName()+"に"+chara[3]+"ダメージを与えました。");
-						}else {
-							int damageP = chara[3] - ene.getDef();
-							announce(ene.getName()+"に"+damageP+"ダメージを与えました。");
-							ene.setHp(ene.getHp() - damageP);
+							announce("魔法の力が高まっていくのを感じる！");
+							magicD = player.getAtk() * (magicCounter * 1.5);
+							d = (int)Math.ceil(magicD);
 							
-							if(ene.getHp() <= 0) {
-								ene.setHp(0);
-							}
+						}else {
+							
+							d = totalDamage(player.getAtk(),enemy.getDef());
+							
+						}
+						
+						enemy.setHp(enemy.getHp() - d);
+						announce(enemy.getName()+"に"+ d +"ダメージを与えました。");
+						
+						if(enemy.getHp() <= 0) {//HPが0以下になるなら0にする
+							enemy.setHp(0);
 						}
 						
 					}else if(result == 2){
 						//自分がダメージを受けて、０じゃないならターンを繰り返す。
 						
-							announce(ene.getName()+"から"+(ene.getAtk() - chara[4])+"ダメージを受けました。");
-							chara[5] = chara[5] - (ene.getAtk() - chara[4]);
-							if(chara[5] <= 0) {
-								chara[5] = 0;
-							}
+						d = totalDamage(enemy.getAtk(),player.getDef());
+							
+						announce(enemy.getName()+"から"+d+"ダメージを受けました。");
+						player.setHp(player.getHp() - d);
+						
+						if(player.getHp() <= 0) {
+							player.setHp(0);
+						}
 						
 						
 					}else if(result == 3) {
 						//盾でダメージを防ぐ、ターンを繰り返す。
-						announce(ene.getName()+"からの攻撃を防ぎました！");
+						if(shieldCounter == 0) {
+							announce(enemy.getName()+"からの攻撃を防ぎました！");
+						}else {
+							announce("さらに"+enemy.getName()+"からの攻撃を防ぎました！相手の攻撃を跳ね返します！");
+							d = enemy.getAtk() * (shieldCounter * 2);
+							announce(enemy.getName()+"に"+ totalDamage(d,enemy.getDef()) +"ダメージを与えました。");
+							
+						}
+						
 					}else if(result == 4) {
 						//自分の攻撃が防がれる、竜殺しの剣を持ってないなら貫通イベントは無し、ターンを繰りかえす。
 						
-						announce(ene.getName()+"に攻撃を防がれました！");
-						if(chara[0] == 3) {
+						announce(enemy.getName()+"に攻撃を防がれました！");
+						
+						if(player.getWeapon() == 3) {
 							//竜殺しの剣イベント
 						}
-					}else {
 						
-						if(ene.getId() == 5) {
+					}else {//ドラゴンスキル
+					
+						
+						if(enemy.getEneId() == 5) {
+							
 							switch(result) {
-							case 5:announce("ドラゴン超の生命力が活性化します！体力を20回復！");
 							
-								if(ene.getHp()+20 > maxHpEne) {
-									ene.setHp(maxHpEne);
-								}else {
-									ene.setHp(ene.getHp()+20);
-								}
+								case 5:
+									announce("ドラゴン超の生命力が活性化します！体力を20回復！");
 								
-								break;
-								
-							case 6:announce("ドラゴンブレス！！問答無用の30ダメージ！！");
-							
-									chara[5] = chara[5] - 30;
-									
-									if(chara[5] <= 0) {
-										
-										chara[5] = 0;
-										
+									if(enemy.getHp()+20 > maxHpEne) {
+										enemy.setHp(maxHpEne);
+									}else {
+										enemy.setHp(enemy.getHp()+20);
 									}
 									
-								break;
-								
-							case 7:announce("ドラゴンの怒りが攻撃力を高めます！");
-									ene.setAtk(ene.getAtk() + 10);
-								break;
-								
-							case 8:announce("ドラゴンの怒りが鱗の強度を高めます！");
-									ene.setDef(ene.getDef() + 5);
-								break;
-								
-							case 9:announce("ドラゴンが怒り狂っています！");
+									break;
+									
+								case 6:
+									announce("ドラゴンブレス！！問答無用の30ダメージ！！");
 							
-							break;
+									player.setHp(player.getHp() - 30);
+									
+									if(player.getHp() < 0) {
+										
+										player.setHp(0);
+										
+									}
+										
+									break;
+									
+								case 7:
+									announce("ドラゴンの怒りが攻撃力を高めます！");
+									
+									enemy.setEneAtk(enemy.getAtk() + 10);
+									break;
+									
+								case 8:
+									announce("ドラゴンの怒りが鱗の強度を高めます！");
+										
+									enemy.setDef(enemy.getDef() + 5);
+									break;
+									
+								case 9:announce("ドラゴンが怒り狂っています！");
+								
+								break;
+								
+								case 0:announce("お互いに攻撃を躱しました！");
+								
+								break;
 							}
+							
 						}else {
 							
 							announce("お互いに攻撃を躱しました！");
 							
 						}
 						
+						if(result != 3) {//盾連続イベント初期化
+							
+							shieldCounter = 0;
+							
+						}
+						
+					}
+						
+				}
+					
+				
+			}else if(select.equals("w")){//アイテムパターン
+				
+				
+				String[] myItems = player.getItemBox();
+				b = true;
+				
+				int i = 0;
+				int itemCount = 0;
+					
+				for(String j : myItems) {//装備品以外の所持してるアイテム数を確認
+					
+					if( j != null) {//まずnullフィルター
+						
+						if(Integer.parseInt(j) >= 10010){
+							
+							itemCount++;
+							
+						}
+					}
+				}
+				
+				String[] array = new String[itemCount]; 
+				
+				setAfterItems(array);
+				
+				int j  = 0;
+				for(i = 0; i < myItems.length; i++) {//配列を整理してアイテムのみの配列を生成	
+					
+					if(myItems[i] != null) {
+						
+						if(Integer.parseInt(myItems[i]) >= 10010) {
+							
+							afterItems[j] = myItems[i];
+							j++;
+							
+						}
+					}
+						
+					
+				}
+				
+				while(b){
+					
+					System.out.println("使用できるアイテムを表示します。使用するアイテムを番号で入力してください。");
+					System.out.println("--------------------------------------------------------------------------");
+					
+					int k = 0;
+				
+					for(String selectItem : afterItems) {//コンソールに表示
+						
+						String[] item = search(selectItem);
+						
+						System.out.println(k + "" + ":" + "" + item[0] + "" + ":" + "" + item[3]);
+						
+						k++;
 						
 					}
 					
-				}while(b);
+					System.out.println(100+":"+"戻る");
 				
-			}else {
-				
-				
-				String[] item = new String[10];
-				int i = 0;
-				int itemCount = 0;
-				for(i = 0; i < itemBox.length;i++) {//剣盾以外のアイテムを選別する。
+					String answer = null;	
+					
+							
+						
+					try {
+						
+						answer = sc.next();
+						b = false;
+						
+					}catch(Exception e) {	
+						
+						announce("入力が間違っています。");
+						
+						b = true;
+						
+					}
+					
 					
 						
+					
 						
-						if(itemBox[i] != null) {
-							
-							if(Integer.parseInt(itemBox[i]) >= 10) {
-								
-								item[itemCount] = itemBox[i];
-								itemCount ++;
-								
-							}
+					if(answer.equals("100")) {
+						
+						announce("選択に戻ります。");
+						b = false;
+						
+					}else {
+						
+						int an = 0;
+						
+						try {
+							an = Integer.parseInt(answer);
+							b = true;
+						}catch(Exception e) {
+							b = false;
 						}
-					
-					
-					if(i == (itemBox.length - 1) ) {//使用できるアイテムがあるかチェック。
 						
-						int nullCount = 0;
-						
-						for(int j = 0 ; j < item.length; j++) {
+						if(b){//入力が正しいか確認
 							
-							if(item[j] == null) {
-								nullCount ++;
-							}
-						}
-						
-						if(nullCount == item.length) {
+							String[] item = new String[4];
 							
-							announce("使用できるアイテムはなかった。");
-							
-						}else {
-							//使用できるアイテムが有るので使うアイテムを選択。
-							
-	//						List<String> list = new ArrayList<String>(Arrays.asList(item));
-	//						
-	//						list.remove(null);
-	//						
-	//						String[] item2 = (String[]) List.toArray(new String[list.size()]);
-							
-							String[] item2 = new String[item.length - nullCount];//使用できるアイテムのみの配列
-							int l = 0;
-							
-							for(int k = 0; k < item.length ; k++) {
+							if(an <= afterItems.length - 1) {//配列内の数字か確認
 								
-								if(item[k] != null) {
-									
-									item2[l] = item[k];
-									l++;
-									
-								}
-							}
-							do {
-								announce("使用できるアイテムを表示します。使用するアイテムを番号で入力してください。");
-								announce("--------------------------------------------------------------------------");
+								item = search(afterItems[an]);//アイテムの表示IDから検索。
+													
 								
-								int k = 0;
-								String[] itemId = new String[10];
-							
-								for(String selectItem : item2) {
+								if(Integer.parseInt(item[2]) <= 10012) {//回復系アイテム処理
 									
-									String[] item3 = search(selectItem);
-									System.out.println(k+":"+item3[0]);
+									announce(item[0] + "を使います。HPを" + item[1] + "回復します");
+									player.setHp(player.getHp() + Integer.parseInt(item[1]));
 									
-									itemId[k] = item3[2];
-									k++;
-									
-								}
-								System.out.println(100+":"+"戻る");
-							
-								int answer = 1000;
-								do {
-									try {
+									if(player.getHp() > maxHpPla) {
 										
-										answer = sc.nextInt();
-										b = false;
-										
-									}catch(Exception e) {	
-										announce("入力ルールが守られていません。エラーのためゲームを終了します。");
-										sc.close();
-										return chara;
+										player.setHp(maxHpPla);
 									}
 									
-								}while(b);
-									
-								if(answer == 100) {
-									
-									announce("選択に戻ります。");
 									b = false;
 									
-								}else {
-								
-									if(answer <= item2.length) {//入力が正しいか確認
-										
-										String[] item4 = search(itemId[answer]);//アイテムのIDから検索。
-										charaItem.delItemBox(answer);								//アイテムを削除する処理を入れる
-										int maxHp = chara[5];
-										
-										switch(Integer.parseInt(item4[2])) {
-											case 10: 		
+								}else {//それ以外のアイテム処理
+									
+									switch(Integer.parseInt(item[2])) {
+									
+										case 10013://爆弾
+												announce(item[0] + "を使います。" + enemy.getName() + "に" + item[1] + "ダメージを与えます");
+												enemy.setHp(enemy.getHp() - Integer.parseInt(item[1]));
 												
-												announce(item4[0] + "を使います。HPを" + item4[1] + "回復します");
-												chara[5] += Integer.parseInt(item[1]);
-												
-												if(chara[5] > maxHp) {
-													chara[5] = maxHp;
+												if(enemy.getHp() > maxHpEne) {
+													enemy.setHp(maxHpEne);
 												}
 												b = false;
-												break;
-											case 11:
-												announce(item4[0] + "を使います。HPを" + item4[1] + "回復します");
-												chara[5] += Integer.parseInt(item[1]);
-												
-												if(chara[5] > maxHp) {
-													chara[5] = maxHp;
-												}
-												b = false;
-												break;
-											case 12:
-												announce(item4[0] + "を使います。HPを" + item4[1] + "回復します");
-												chara[5] += Integer.parseInt(item[1]);
-												
-												if(chara[5] > maxHp) {
-													chara[5] = maxHp;
-												}
-												b = false;
-												break;
-											case 13:
-												announce(item4[0] + "を使います。HPを" + item4[1] + "回復します");
-												chara[5] += Integer.parseInt(item[1]);
-												
-												if(chara[5] > maxHp) {
-													chara[5] = maxHp;
-												}
-												b = false;
-												break;
-											case 14:
-												announce(item4[0] + "を使います。戦闘から逃げます。");
-												chara[5] += Integer.parseInt(item[1]);
-												
-												if(chara[5] > maxHp) {
-													chara[5] = maxHp;
-												}
+										break;
+											
+										case 10014://けむり玉
+											
+												announce(item[0] + "を使います。戦闘から逃げます。");
 												
 												announce("・・・");
 												announce("・・・");
 												
-												if(ene.getId() == 5) {
+												if(enemy.getEneId() == 5) {
+													
 													announce("この相手からは逃げられない！！");
 													b = true;
+													
 												}else {
+													
 													announce("逃げ切った！");
 													b = false;
 													escape = 1;
+													
 												}
-
-												break;
-												
-												
-										}
-										
-										
-										
-									}else {
-										
-										announce("アイテムの番号が間違っています。再度入力してください。");
-										
-										
-										b = true;
-										
-									}
-								}
+										break;
+									}//switch
+									
+								}//else
 								
-							}while(b);
-						}
-					}
-				}	
+							}//配列内の数字確認用
+							
+							player.delItemBox(Integer.parseInt(item[2]));//使ったアイテムを削除する処理
+							
+						}else {
+							
+							announce("アイテムの番号が間違っています。再度入力してください。");
+							
+							
+							b = true;
+							
+						}	
+					
+					}//else	
 				
+				}//while Item用	
+						
+			}else {
+				announce("入力が間違っています");
+				b = true;
 			}
 			
-			if(ene.getHp() == 0 || chara[5] == 0) {
+			if(enemy.getHp() == 0 || player.getHp() == 0) {//倒す、倒されるイベント
 				
-				if(ene.getHp() == 0) {
-					if(ene.getId() == 4) {
+				if(enemy.getHp() == 0) {//敵のHP0
+					
+					if(enemy.getEneId() == 4) {
 						
 						announce("ドラゴンを倒しました！おめでとうございます！");
 						
-						chara[0] = 100;
-						b = false;
-					}else if(ene.getId() == 5) {
+						player.setLast(100);
+						
+					}else if(enemy.getEneId() == 5) {
+						
 						announce("完全勝利しました！おめでとうございます！");
-						chara[0] = 1000;
+						
+						player.setLast(1000);
+						
 					}else {
-						announce("魔物を倒しました！"+name+"のレベルが上がります！");
-						announce(chara[2]+"→"+(chara[2] + 1));
-						chara[2] = chara[2] + 1;
-						chara[5] = maxHpPla;
-						b = false;
+						
+					
 					}
 					
+					if(enemy.getEneId() != 5) {
+						
+						player.setHp(maxHpPla);
+						
+						announce("魔物を倒しました！"+ player.getName() +"のレベルが上がります！");	
+						announce(player.getLevel() + "→" + ( player.getLevel() + 1));
+						
+						player.setLevel(player.getLevel() + 1);
 					
-				}else {
+					}
+					
+					b = false;
+					
+				}else {//自分のHP0
+					
 					announce("致命的なダメージを受けました。G A M E O V E R ");
 					b = false;
 				}
-				
-			}else {
+			
+			}else {//どちらのHPが0ではない時、繰り返す
 				
 				b = true;
 			}
 			
-			if(escape == 1) {
+			if(escape == 1) {//けむり玉を使う。
 				
 				b = false;
 			}
 			
-		}while(b);//バトルの繰り返し。
-		
-	//}while(b);	
-		
-		return chara;
+			
+			
+		}//while(1)
 	}
+			
 	
 	public static int janken(int p ,int e) {
 	//1=剣　2=盾　3=魔法
@@ -737,7 +839,7 @@ public class Event extends MainContent{
 					
 				}
 			}
-			//1= ダメージを与える　2=　ダメージを受ける　3= ダメージを防ぐ　 4= ダメージを防がれる
+			//0= あいこ　1= ダメージを与える　2=　ダメージを受ける　3= ダメージを防ぐ　 4= ダメージを防がれる
 		}
 		return judge;
 		
@@ -749,11 +851,12 @@ public class Event extends MainContent{
 		String[][] itemBook = Item.itemBook();//アイテム図鑑
 		String[] result = new String[4];
 		
-		if(search.equals("100")) {
+		if(search.equals("100")) {//装備品がない場合の処理
 			
 			result[2] = search;
 			
 		}else {
+			
 			for(int i = 0; i < itemBook.length ; i ++ ) {
 				
 				for(int j = 0 ; j < 4 ; j++) {
@@ -761,13 +864,37 @@ public class Event extends MainContent{
 					if(itemBook[i][j].equals(search)) {
 						
 						for(int k = 0; k < 4; k++) {
+							
 							result[k] = itemBook[i][k];
+							
 						}
 					}
 				}
 			}
 		}
 		return result;
+		
+	}
+	
+	public static int totalDamage(int atk, int def) {
+		
+		int total = atk - def;
+		
+		if(total < 0) {
+			total = 0;
+		}
+		
+		return total;
+	}
+
+	public static String[] getAfterItems() {
+		
+		return afterItems;
+	}
+
+	public static void setAfterItems(String[] a) {
+		
+		afterItems = a;
 		
 	}
 	
