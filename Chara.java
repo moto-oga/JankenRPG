@@ -56,6 +56,7 @@ public class Chara{
 			
 			default://何も値を入れずにインスタンスを生成
 				
+				
 			break;
 			
 		}
@@ -178,19 +179,21 @@ public class Chara{
 		return weapon;
 	}
 	public void setWeapon(int weapon) {
+		
 		int weaponNum = weapon;
 		this.weapon = weaponNum;
+		
 		switch(weaponNum) {
-			case 0: setWeaponPower(Integer.parseInt(Item.douNoKen()[1]));
+			case 1000: setWeaponPower(Integer.parseInt(Item.douNoKen()[1]));
 					setAtk();
 				break;
-			case 1: setWeaponPower(Integer.parseInt(Item.ginNoKen()[1]));
+			case 1001: setWeaponPower(Integer.parseInt(Item.ginNoKen()[1]));
 					setAtk();
 				break;
-			case 2: setWeaponPower(Integer.parseInt(Item.kinNoKen()[1]));
+			case 1002: setWeaponPower(Integer.parseInt(Item.kinNoKen()[1]));
 					setAtk();
 				break;
-			case 3: setWeaponPower(Integer.parseInt(Item.ryuNoKen()[1]));
+			case 1003: setWeaponPower(Integer.parseInt(Item.ryuNoKen()[1]));
 					setAtk();
 				break;
 		}

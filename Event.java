@@ -446,8 +446,12 @@ public class  Event extends MainContent{
 							magicD = player.getAtk() * (magicCounter * 1.5);
 							d = (int)Math.ceil(magicD);
 							
-						}else {
+						}else if(player.getWeapon() == 1003 && (enemy.getEneId() == 4 || enemy.getEneId() == 5)){
+							announce("ドラゴンに対して竜殺しの剣が反応します！");
+							announce("驚異的なダメージを与えます！");
+							d = player.getAtk() * 3;
 							
+						}else {	
 							d = totalDamage(player.getAtk(),enemy.getDef());
 							
 						}
@@ -488,8 +492,18 @@ public class  Event extends MainContent{
 						
 						announce(enemy.getName()+"に攻撃を防がれました！");
 						
-						if(player.getWeapon() == 3) {
+						if(player.getWeapon() == 1003) {
 							//竜殺しの剣イベント
+							announce("竜殺し剣が相手のガードを貫きます！");
+							
+							d = (int)Math.ceil((double)player.getAtk()/2);
+							
+							enemy.setHp(enemy.getHp() - d);
+							announce(enemy.getName()+"に"+ d +"ダメージを与えました。");
+							
+							if(enemy.getHp() <= 0) {//HPが0以下になるなら0にする
+								enemy.setHp(0);
+							}
 						}
 						
 					}else {//ドラゴンスキル

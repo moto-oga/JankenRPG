@@ -6,39 +6,28 @@ public class Item {
 		String[][] itemBook = new String[13][4];
 		
 		itemBook[0] = douNoKen();
-		
-		
+			
 		itemBook[1] = ginNoKen();
-		
 		
 		itemBook[2] = kinNoKen();
 	
 		itemBook[3] = ryuNoKen();
 	
-		
 		itemBook[4]= douNoTate();
-		
-		
+			
 		itemBook[5] = ginNoTate();
 
-		
 		itemBook[6] = kinNoTate();
-
 		
 		itemBook[7] = ryuNoTate();
-
 		
 		itemBook[8] = kaifuku();
-
 		
 		itemBook[9] = kyouKaifuku();
-
 		
 		itemBook[10] = gekiKyouKaifuku();
-		
-		
+				
 		itemBook[11] = bom();
-		
 		
 		itemBook[12] = kemuriDama();
 		
@@ -58,7 +47,7 @@ public class Item {
 		return item;
 	}
 	public static String[] kinNoKen() {
-		String[] item = {"金の剣","4","1002","装備すると攻撃力が4上がる"};
+		String[] item = {"金の剣","8","1002","装備すると攻撃力が4上がる"};
 		return item;
 	}
 	public static String[] ryuNoKen() {
@@ -90,7 +79,7 @@ public class Item {
 		return item;
 	}
 	public static String[] gekiKyouKaifuku() {
-		String[] item = {"劇強回復薬","12","10012","体力を12回復する"};
+		String[] item = {"激強回復薬","12","10012","体力を12回復する"};
 		return item;
 	}
 	public static String[] bom() {

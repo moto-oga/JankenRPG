@@ -61,6 +61,7 @@ public class MainContent{
 			
 			System.out.println(Item.douNoKen()[0] + "を装備しました！");
 			player.setWeapon(Integer.parseInt(Item.douNoKen()[2]));
+		
 	
 			
 		}else {
@@ -86,8 +87,11 @@ public class MainContent{
 //			player.setWeapon(3);
 //			player.setShield(7);
 //			player.setHp(150);	
-//			player.setLevel(20);//--迄
-			//announce(Arrays.toString(chara.getItemBox()));			
+//			player.setLevel(20);
+//			announce(Arrays.toString(player.getItemBox()));	
+//			for(String[] it : Item.itemBook()) {
+//				System.out.println(Arrays.toString(it));//--迄
+//			}
 			
 			switch(event) {//イベント分岐
 			
@@ -202,11 +206,11 @@ public class MainContent{
 		for(int i = 0; i < a.length(); i++) {
 			
 			if(i == a.length()-1) {
-				sleep(100);
+				sleep(70);
 				b = a.substring(i,i+1);
 				System.out.print(b+c);
 			}else {
-				sleep(100);
+				sleep(70);
 				b = a.substring(i,i+1);
 				System.out.print(b);
 			}
