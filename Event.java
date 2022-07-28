@@ -732,8 +732,15 @@ public class  Event extends MainContent{
 								}//else
 								
 							}//配列内の数字確認用
-							
-							player.delItemBox(Integer.parseInt(item[2]));//使ったアイテムを削除する処理
+							try {
+								player.delItemBox(Integer.parseInt(item[2]));//使ったアイテムを削除する処理
+								
+							}catch(Exception e) {
+								
+								announce("アイテムの番号が間違っています。再度入力してください。");
+								
+								b = true;
+							}
 							
 						}else {
 							
